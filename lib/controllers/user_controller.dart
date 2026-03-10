@@ -16,30 +16,37 @@ class UserController extends GetxController {
     fetchUsers();
   }
 
-  void fetchUsers() async {
+
+  Future<void> fetchUsers() async {
     try {
-      isLoading(true);
-      errorMessage('');
-      users.value = await _apiService.fetchUsers();
-      filteredUsers.value = users;
+      isLoading.value = true;
+      errorMessage.value = '';
+      final fetched = await _apiService.fetchUsers();
+      users.assignAll(fetched);
+      filteredUsers.assignAll(fetched);
     } catch (e) {
-      errorMessage(e.toString());
+      errorMessage.value = e.toString();
     } finally {
-      isLoading(false);
+      isLoading.value = false;
     }
   }
 
   void searchUsers(String query) {
-    if (query.isEmpty) {
-      filteredUsers.value = users;
-    } else {
-      filteredUsers.value = users.where((user) =>
-          user.name!.toLowerCase().contains(query.toLowerCase()) ||
-          user.email!.toLowerCase().contains(query.toLowerCase())).toList();
+    if (query.trim().isEmpty) {
+      filteredUsers.assignAll(users);
+      return;
     }
+
+    final q = query.toLowerCase();
+    filteredUsers.assignAll(
+      users.where((u) =>
+          (u.name ?? '').toLowerCase().contains(q) ||
+          (u.email ?? '').toLowerCase().contains(q),
+      ),
+    );
   }
 
-  void refreshUsers() {
-    fetchUsers();
+  Future<void> refreshUsers() async {
+    await fetchUsers();
   }
 }

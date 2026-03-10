@@ -1,3 +1,4 @@
+import 'package:basic_crud_app/widgets/details_row_widget.dart';
 import 'package:flutter/material.dart';
 import '../models/models.dart';
 
@@ -34,12 +35,12 @@ class UserDetailScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    _buildDetailRow('Name', user.name ?? ''),
-                    _buildDetailRow('Email', user.email ?? ''),
-                    _buildDetailRow('Phone', user.phone ?? ''),
-                    _buildDetailRow('Website', user.website ?? ''),
-                    _buildDetailRow('Company', user.company?.name ?? ''),
-                    _buildDetailRow('City', user.address?.city ?? ''),
+                    buildDetailRow('Name', user.name ?? ''),
+                    buildDetailRow('Email', user.email ?? ''),
+                    buildDetailRow('Phone', user.phone ?? ''),
+                    buildDetailRow('Website', user.website ?? ''),
+                    buildDetailRow('Company', user.company?.name ?? ''),
+                    buildDetailRow('City', user.address?.city ?? ''),
                   ],
                 ),
               ),
@@ -50,24 +51,4 @@ class UserDetailScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildDetailRow(String label, String value) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(
-            width: 80,
-            child: Text(
-              '$label:',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-          ),
-          Expanded(
-            child: Text(value),
-          ),
-        ],
-      ),
-    );
-  }
 }

@@ -38,7 +38,7 @@ class UserListScreen extends StatelessWidget {
             child: Obx(() {
               if (userController.isLoading.value) {
                 return Center(child: CircularProgressIndicator());
-              } else if (userController.errorMessage.isNotEmpty) {
+              } else if (userController.errorMessage.value.isNotEmpty) {
                 return Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -53,7 +53,7 @@ class UserListScreen extends StatelessWidget {
                 );
               } else {
                 return RefreshIndicator(
-                  onRefresh: () async => userController.refreshUsers(),
+                  onRefresh: () => userController.refreshUsers(),
                   child: ListView.builder(
                     itemCount: userController.filteredUsers.length,
                     itemBuilder: (context, index) {
@@ -64,7 +64,9 @@ class UserListScreen extends StatelessWidget {
                           leading: CircleAvatar(
                             backgroundColor: Theme.of(context).primaryColor,
                             child: Text(
-                              user.name![0].toUpperCase(),
+                              (user.name?.isNotEmpty == true)
+                              ? user.name![0].toUpperCase()
+                              : '?',
                               style: TextStyle(color: Colors.white),
                             ),
                           ),
