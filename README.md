@@ -1,16 +1,43 @@
-# basic_crud_app
+# Flutter Basic Crud App
 
-A new Flutter project.
+## Setup Instructions
 
-## Getting Started
+1. **Clone the repository**
 
-This project is a starting point for a Flutter application.
+```bash
+git clone <https://github.com/subsavage/basic_crud_app>
+cd <project-folder>
+```
 
-A few resources to get you started if this is your first Flutter project:
+2. **Install dependencies**
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+```bash
+flutter pub get
+```
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+3. **Run the application**
+
+Make sure an emulator or physical device is connected.
+
+```bash
+flutter run
+```
+
+---
+
+## Packages Used
+
+- **dio (5.9.2)**  
+  Used for handling API requests and networking.
+
+- **get (4.7.3)**  
+  Used for state management, dependency injection, and navigation.
+
+---
+
+## Assumptions Made
+
+- The API endpoint `https://jsonplaceholder.typicode.com/users` is available and returns valid user data
+- The response structure from the API remains consistent and includes fields: `name`, `email`, `phone`, `website`, `company.name`, and `address.city`
+- The application requires an active internet connection to fetch users
+- Basic error handling is implemented for API failures
